@@ -23,4 +23,9 @@
     <string name="txt_wifistate">连接查询</string>
     <string name="btn_conf">START CONFIGURATION</string>
     <string name="btn_stop_conf">Stop Configuration</string>
+    <string name="text_bssid">bssid</string>
+    <string name="text_custom">用户自定义数据</string>
+    <string name="text_success">配网成功</string>
+    <string name="btn_sendcustomdata">send custom data</string>
+    <string name="text_ssid">ssid</string>
 </resources>

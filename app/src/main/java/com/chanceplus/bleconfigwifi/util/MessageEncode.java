@@ -24,8 +24,12 @@ public class MessageEncode {
      * @param type
      * @param value
      */
-    public void putValue(byte type ,String value){
+    public void putStringValue(byte type ,String value){
         tlv.putStringValue(MessagePacket.byteToInt(type),value);
+    }
+
+    public void putBytesValue(byte type ,byte[] bytes){
+        tlv.putBytesValue(MessagePacket.byteToInt(type),bytes);
     }
 
     /**

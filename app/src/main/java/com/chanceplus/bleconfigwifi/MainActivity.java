@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.chanceplus.bleconfigwifi.adapter.DeviceAdapter;
+import com.chanceplus.bleconfigwifi.comm.ObserverManager;
 import com.chanceplus.bleconfigwifi.detail.WifiConfigActivity;
 import com.clj.fastble.BleManager;
 import com.clj.fastble.callback.BleGattCallback;
@@ -256,18 +257,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 设置蓝牙扫描
      */
     private void setScanRule() {
-//        String[] uuids = null
-//        UUID[] serviceUuids = null;
-//        String[] names = null;
-//
-//        BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
-//                .setServiceUuids(serviceUuids)      // 只扫描指定的服务的设备，可选
-//                .setDeviceName(true, names)   // 只扫描指定广播名的设备，可选
-//                .setDeviceMac(mac)                  // 只扫描指定mac的设备，可选
-//                .setAutoConnect(isAutoConnect)      // 连接时的autoConnect参数，可选，默认false
-//                .setScanTimeOut(10000)              // 扫描超时时间，可选，默认10秒
-//                .build();
-
         BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
                 .setAutoConnect(false)      // 连接时的autoConnect参数，可选，默认false
                 .setScanTimeOut(10000)              // 扫描超时时间，可选，默认10秒
@@ -331,6 +320,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mDeviceAdapter.notifyDataSetChanged();
             }
 
+            /**
+             * 连接断开的回调
+             * @param isActiveDisConnected
+             * @param bleDevice
+             * @param gatt
+             * @param status
+             */
             @Override
             public void onDisConnected(boolean isActiveDisConnected, BleDevice bleDevice, BluetoothGatt gatt, int status) {
                 progressDialog.dismiss();
@@ -342,9 +338,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, getString(R.string.active_disconnected), Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(MainActivity.this, getString(R.string.disconnected), Toast.LENGTH_LONG).show();
-//                    ObserverManager.getInstance().notifyObserver(bleDevice);
+                    ObserverManager.getInstance().notifyObserver(bleDevice);
                 }
-
             }
         });
     }
